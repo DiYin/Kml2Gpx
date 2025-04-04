@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Kml2GpxShared\SharpKmls\FileInfoExtensions.cs" Link="SharpKmls\FileInfoExtensions.cs" />
+    <Compile Include="..\Kml2GpxShared\SharpKmls\KmlDocument.cs" Link="SharpKmls\KmlDocument.cs" />
+    <Compile Include="..\Kml2GpxShared\SharpKmls\KmlFolder.cs" Link="SharpKmls\KmlFolder.cs" />
+    <Compile Include="..\Kml2GpxShared\SharpKmls\KmlResource.cs" Link="SharpKmls\KmlResource.cs" />
+    <Compile Include="..\Kml2GpxShared\SharpKmls\KmzKmlFile.cs" Link="SharpKmls\KmzKmlFile.cs" />
+    <Compile Include="..\Kml2GpxShared\SharpKmls\KmzKmlFileExtensions.cs" Link="SharpKmls\KmzKmlFileExtensions.cs" />
+  </ItemGroup>
+	<ItemGroup>
+	<PackageReference Include="SharpKml.Core" Version="5.2.0" />
+	<PackageReference Include="SharpZipLib" Version="1.3.3" />
+	</ItemGroup>
+
+</Project>
