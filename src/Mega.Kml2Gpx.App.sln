@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mega.Kml2Gpx.WinForms.App", "Mega.Kml2Gpx.WinForms.App\Mega.Kml2Gpx.WinForms.App.csproj", "{59C17490-2E0F-4362-BE87-50379934C95C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Kml2GpxShared", "Kml2GpxShared\Kml2GpxShared.shproj", "{F1197F21-3381-48DB-9282-301F2DF6902D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mega.Kml2Gpx.WinUI3.App", "Mega.KmlGpx.WinUI3.App\Mega.Kml2Gpx.WinUI3.App.csproj", "{DCD7F00E-2208-4661-84D5-756939C73D68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mega.Kml2Gpx.Wpf", "Mega.kml2Gpx.Wpf\Mega.Kml2Gpx.Wpf.csproj", "{44821A2F-871F-4B31-839B-E2A553A72133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mega.Kml2Gpx", "Mega.Kml2Gpx\Mega.Kml2Gpx.csproj", "{F041EFDF-6543-4ACC-AC64-091632347C09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59C17490-2E0F-4362-BE87-50379934C95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C17490-2E0F-4362-BE87-50379934C95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C17490-2E0F-4362-BE87-50379934C95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C17490-2E0F-4362-BE87-50379934C95C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD7F00E-2208-4661-84D5-756939C73D68}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{DCD7F00E-2208-4661-84D5-756939C73D68}.Debug|Any CPU.Build.0 = Debug|x64
+		{DCD7F00E-2208-4661-84D5-756939C73D68}.Debug|Any CPU.Deploy.0 = Debug|x64
+		{DCD7F00E-2208-4661-84D5-756939C73D68}.Release|Any CPU.ActiveCfg = Release|x64
+		{DCD7F00E-2208-4661-84D5-756939C73D68}.Release|Any CPU.Build.0 = Release|x64
+		{DCD7F00E-2208-4661-84D5-756939C73D68}.Release|Any CPU.Deploy.0 = Release|x64
+		{44821A2F-871F-4B31-839B-E2A553A72133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44821A2F-871F-4B31-839B-E2A553A72133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44821A2F-871F-4B31-839B-E2A553A72133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44821A2F-871F-4B31-839B-E2A553A72133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F041EFDF-6543-4ACC-AC64-091632347C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F041EFDF-6543-4ACC-AC64-091632347C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F041EFDF-6543-4ACC-AC64-091632347C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F041EFDF-6543-4ACC-AC64-091632347C09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

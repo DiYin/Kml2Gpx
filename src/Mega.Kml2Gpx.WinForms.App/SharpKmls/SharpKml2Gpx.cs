@@ -1,14 +1,13 @@
-﻿using Kml2Gpx.SharpKmls;
-using Mega.Kml2Gpx.WinForms.App.Models;
-using Mega.Kml2Gpx.WinForms.App.Xml;
+﻿using Mega.Kml2Gpx.SharpKmls;
 using SharpKml.Engine;
+using Mega.Kml2Gpx.Models;
 
-namespace Mega.Kml2Gpx.WinForms.App.SharpKmls;
+namespace Mega.Kml2Gpx;
 
 /// <summary>
 /// Class to convert KML to GPX
 /// </summary>
-internal class SharpKml2Gpx
+public class SharpKml2Gpx
 {
     /// <summary>
     /// Process to convert Kml to GPX
@@ -17,7 +16,7 @@ internal class SharpKml2Gpx
     /// <param name="outputFolder">The folder of the gpx files to store.</param>
     /// <param name="onePerKml">Flag to indicate if store all gpx file in one folder for a kml file. Default value is false.</param>
     /// <returns></returns>
-    public static async Task<bool> ProcessKml2Gpx(string filePath, string outputFolder, bool onePerKml = false, bool onePerFolder = false)
+    public static async Task<bool> ProcessKml2Gpx(string filePath, string outputFolder, OutputMode onePerKml = false, bool onePerFolder = false)
     {
         var kmlFile = await LoadKmzKmlFile(filePath);
 

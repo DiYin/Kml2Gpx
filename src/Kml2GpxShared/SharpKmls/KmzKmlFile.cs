@@ -3,7 +3,7 @@
 using Windows.Storage;
 #endif
 
-namespace Kml2Gpx.SharpKmls;
+namespace Mega.Kml2Gpx.SharpKmls;
 
 public delegate void FileLoadedEventHandler(Object sender, FileLoadedEventArgs e);
 

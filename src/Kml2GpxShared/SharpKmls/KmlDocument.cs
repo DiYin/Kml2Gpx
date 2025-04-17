@@ -1,6 +1,6 @@
 ﻿using SharpKml.Dom;
 
-namespace Kml2Gpx.SharpKmls;
+namespace Mega.Kml2Gpx.SharpKmls;
 
 /// <summary>
 /// Class represents a KML document.

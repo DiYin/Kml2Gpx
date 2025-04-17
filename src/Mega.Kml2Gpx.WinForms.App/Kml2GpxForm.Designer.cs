@@ -99,7 +99,7 @@ namespace Mega.Kml2Gpx.WinForms.App
             // _openFileDialog
             // 
             _openFileDialog.DefaultExt = "kml";
-            _openFileDialog.Filter = "KMZ,KML|*.kmz,*.kml";
+            _openFileDialog.Filter = "KMZ|*.kmz|KML|*.kml";
             _openFileDialog.Title = "Select KML file to convert";
             // 
             // _btnBrowseFile
@@ -189,6 +189,7 @@ namespace Mega.Kml2Gpx.WinForms.App
             Controls.Add(_txtFileName);
             Controls.Add(_lblFileName);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Kml2GpxForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "KML to GPX Converter";

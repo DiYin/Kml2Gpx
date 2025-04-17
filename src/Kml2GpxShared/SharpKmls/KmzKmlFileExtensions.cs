@@ -1,7 +1,7 @@
 ﻿using Mega.Kml2Gpx.WinForms.App.Models;
 using SharpKml.Engine;
 
-namespace Kml2Gpx.SharpKmls;
+namespace Mega.Kml2Gpx.SharpKmls;
 
 /// <summary>
 /// Extension methods for KmzKmlFile

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Mega.KmlGpx.WinUI3.App (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Mega.KmlGpx.WinUI3.App (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

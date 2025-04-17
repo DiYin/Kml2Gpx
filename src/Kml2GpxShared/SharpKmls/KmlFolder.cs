@@ -1,7 +1,7 @@
 ﻿using SharpKml.Dom;
 using SharpKml.Engine;
 
-namespace Kml2Gpx.SharpKmls;
+namespace Mega.Kml2Gpx.SharpKmls;
 
 /// <summary>
 /// Class represents a folder in KML file.
