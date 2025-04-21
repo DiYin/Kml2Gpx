@@ -20,8 +20,8 @@ internal class KmlXPathReader
     {
         var xPathDoc = new XPathDocument(filePath);
         var navigator = xPathDoc.CreateNavigator();
-        XmlNamespaceManager nsmgr = new XmlNamespaceManager(navigator.NameTable);
-        nsmgr.AddNamespace("kml", "http://www.opengis.net/kml/2.2");
+        XmlNamespaceManager nsManagergr = new XmlNamespaceManager(navigator.NameTable);
+        nsManagergr.AddNamespace("kml", "http://www.opengis.net/kml/2.2");
         //				<kml xmlns="http://earth.google.com/kml/2.0">
         //				<Document xmlns:xlink="http://www.w3/org/1999/xlink">
         //				<name>Grand Canyon</name>
@@ -42,7 +42,7 @@ internal class KmlXPathReader
             while (placeIterator.MoveNext()) // Through the Placemark
             {
                 var placemarkNav = placeIterator.Current.Clone();
-                var isWayPoint = placemarkNav.SelectSingleNode("kml:Point", nsmgr) != null;
+                var isWayPoint = placemarkNav.SelectSingleNode("kml:Point", nsManagergr) != null;
                 placemarkNav = placeIterator.Current.Clone();
                 var childIterator = placemarkNav.SelectChildren(XPathNodeType.Element);
                 if (isWayPoint)
@@ -154,9 +154,9 @@ internal class KmlXPathReader
     /// <summary>
     /// Converts a XPathNavigator to a gpx track
     /// </summary>
-    /// <param name="gpxTrack"></param>
+    /// <param name="track"></param>
     /// <param name="nav"></param>
-    private static void ProcessTrack(Track gpxTrack, XPathNavigator nav, string namespaceUri)
+    private static void ProcessTrack(Track track, XPathNavigator nav, string namespaceUri)
     {
         switch (nav.Name)
         {
@@ -167,7 +167,7 @@ internal class KmlXPathReader
                 sName = sName.Replace(@">", @"&gt;");
                 sName = sName.Replace(@"'", @"&apos;");
                 sName = sName.Replace(@"""", @"&quot;");
-                gpxTrack.Name = sName;
+                track.Name = sName;
                 break;
             case "MultiGeometry":
             case "LineString":
@@ -195,7 +195,7 @@ internal class KmlXPathReader
                     // Get the points array
                     string[] aPoints = xni2.Current.Value.Trim().Split(new[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if (gpxTrack is Track track && aPoints.Length > 0)
+                    if (aPoints.Length > 0)
                     {
                         var points = new List<GpxPoint>();
                         // Process the points

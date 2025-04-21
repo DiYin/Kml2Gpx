@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mega.Kml2Gpx.Wpf"
+        FontFamily="Segoe UI" FontSize="12"
         mc:Ignorable="d"
-        Title="Kml2Gpx" Height="450" Width="760">
+        Title="KML to Gpx Converter (Wpf)" Width="650" Height="420" MaxWidth="650" MaxHeight="420">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,10 +16,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
-            <ColumnDefinition Width="280"/>
-            <ColumnDefinition Width="280"/>
-            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="80"/>
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" 
@@ -29,11 +30,11 @@
                VerticalAlignment="Center"/>
         <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" 
                  IsReadOnly="true"
-                 HorizontalAlignment="Left" 
-                 Margin="0,30,0,0" 
+                 HorizontalAlignment="Stretch" 
+                 Margin="0,30,30,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Center" 
-                 Width="540" Height="30"
+                 Height="30"
                  VerticalContentAlignment="Center" 
                  Text="{Binding SelectedFile, UpdateSourceTrigger=PropertyChanged}" />
         <Button Grid.Row="0" Grid.Column="3" 
@@ -52,11 +53,11 @@
                VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
                  IsReadOnly="True"
-                 HorizontalAlignment="Left" 
-                 Margin="0,30,0,0" 
+                 HorizontalAlignment="Stretch" 
+                 Margin="0,30,30,0" 
                  TextWrapping="Wrap" 
                  VerticalAlignment="Center" 
-                 Width="540" Height="30"
+                 Height="30"
                  VerticalContentAlignment="Center" 
                  Text="{Binding SelectedFolder, UpdateSourceTrigger=PropertyChanged}" />
         <Button Grid.Row="1" Grid.Column="3" 
@@ -73,15 +74,16 @@
                Margin="0,30,0,0" 
                VerticalAlignment="Center"/>
         <Label Grid.Row="2" Grid.Column="2" 
-               Content="Output File" 
+               Content="Output Options" 
                HorizontalAlignment="Left" 
                Margin="0,30,0,0" 
                VerticalAlignment="Center"/>
-        <!-- Bind ConverterCheckedItems -->
+        <!-- Bind ConvertTypeItems -->
         <ListBox Grid.Row="3" Grid.Column="1" 
-                 ItemsSource="{Binding ConverterCheckedItems}" 
-                 SelectionMode="Single" 
-                 Margin="0,0,20,0">
+            ItemsSource="{Binding ConvertTypeItems}" 
+            SelectedItem="{Binding SelectedConvertTypeItem, Mode=TwoWay}"
+            SelectionMode="Single" 
+            Margin="0,0,30,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -92,11 +94,12 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!-- Bind OutputFileCheckedItems -->
+        <!-- Bind OutputModeItems -->
         <ListBox Grid.Row="3" Grid.Column="2" 
-                 ItemsSource="{Binding OutputFileCheckedItems}" 
-                 SelectionMode="Single" 
-                 Margin="0,0,20,0">
+            ItemsSource="{Binding OutputOptionItems}" 
+            SelectedItem="{Binding SelectedOutputOptionItem, Mode=TwoWay}"
+            SelectionMode="Single" 
+            Margin="0,0,30,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -111,7 +114,7 @@
                 Name="buttonConvert" 
                 Content="Convert" 
                 HorizontalAlignment="Stretch" 
-                Margin="0,30,20,0" 
+                Margin="0,30,30,0" 
                 VerticalAlignment="Center" 
                 Height="30" 
                 Command="{Binding ConvertCommand}"/>
@@ -119,7 +122,7 @@
                 Name="buttonExit" 
                 Content="Exit" 
                 HorizontalAlignment="Stretch" 
-                Margin="0,30,20,0" 
+                Margin="0,30,30,0" 
                 VerticalAlignment="Center" 
                 Height="30" 
                 Command="{Binding ExitCommand}"/>

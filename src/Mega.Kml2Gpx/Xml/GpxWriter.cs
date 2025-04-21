@@ -23,7 +23,7 @@ public static class GpxWriter
     /// <param name="onePerKml">Flag to indicate weither only create one folder for Kml file.</param>
     /// <param name="onePerFolder">Flag to indicate weither create sub folder for each Kml Folder.</param>
     /// <returns></returns>
-    public static bool WriteGpx(string filePath, List<KmlFolder> kmlFolders, string outputFolder, OutputMode outputMode)
+    public static bool WriteGpx(string filePath, List<KmlFolder> kmlFolders, string outputFolder, OutputOption outputMode)
     {
         var gpxPlacemarks = new List<GpxPlacemark>();
         foreach (var folder in kmlFolders)
@@ -31,21 +31,21 @@ public static class GpxWriter
             var placemarks = folder.Placemarks;
             switch(outputMode)
             {
-                case OutputMode.OneFile:
+                case OutputOption.OneFile:
                     gpxPlacemarks.AddRange(placemarks);
                     break;
-                case OutputMode.OneFilePerFolder:
+                case OutputOption.OneFilePerFolder:
                     var outputFile = Helper.GetAvailableFilePath(outputFolder, folder.Name, FileExtension);
                     WriteFile(outputFile, placemarks, true);
                     break;
-                case OutputMode.OneFilePerTrack:
+                case OutputOption.OneFilePerTrack:
                     var folderPath = Helper.GetAvailableFolderPath(outputFolder, folder.Name);
                     WriteFile(folderPath, placemarks);
                     break;
             }
         }
 
-        if (outputMode == OutputMode.OneFile)
+        if (outputMode == OutputOption.OneFile)
         {
             var name = Path.GetFileNameWithoutExtension(filePath);
             var outFileName = Helper.GetAvailableFilePath(outputFolder, name, FileExtension);

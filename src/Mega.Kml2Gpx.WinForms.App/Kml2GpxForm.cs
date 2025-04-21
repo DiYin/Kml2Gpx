@@ -1,6 +1,4 @@
-using Mega.Kml2Gpx.WinForms.App.Models;
-using Mega.Kml2Gpx.WinForms.App.Xml;
-using Mega.Kml2Gpx.WinForms.App.XmlDocuments;
+using Mega.Kml2Gpx.Models;
 using System.Reflection;
 
 namespace Mega.Kml2Gpx.WinForms.App
@@ -100,47 +98,13 @@ namespace Mega.Kml2Gpx.WinForms.App
 
             if (CheckPaths(_txtFileName.Text, _txtOutputFolder.Text))
             {
-                var sFileName = _txtFileName.Text;
+                var kmlFileName = _txtFileName.Text;
                 var outputFolder = _txtOutputFolder.Text;
+                var convertType = (ConvertType)GetCheckItemIndex(_checkedListBoxConverters, 0);
+                var outputOption = (OutputOption)GetCheckItemIndex(_checkedListBoxOutputOptions, _checkedListBoxOutputOptions.Items.Count - 1);
+                var message = await Kml2GpxConvert.Convert(kmlFileName, outputFolder, convertType, outputOption);
 
-                var processResult = false;
-                var converterIndex = GetCheckItemIndex(_checkedListBoxConverters, 0);
-                var outputIndex = GetCheckItemIndex(_checkedListBoxOutputOptions, _checkedListBoxOutputOptions.Items.Count - 1);
-                var onePerKml = false;
-                var onePerFolder = false;
-                if (outputIndex == 0)
-                    onePerKml = true;
-                else if (outputIndex == 1)
-                    onePerFolder = true;
-
-                var kmlFolders = new List<KmlFolder>();
-                switch (converterIndex)
-                {
-                    case 0:
-                        processResult = await SharpKmls.SharpKml2Gpx.ProcessKml2Gpx(sFileName, _txtOutputFolder.Text, onePerKml, onePerFolder);
-                        break;
-                    case 1:
-                        kmlFolders = KmlXDocReader.ReadFile(sFileName);
-                        processResult = GpxWriter.WriteGpx(sFileName, kmlFolders, outputFolder, onePerKml, onePerFolder);
-                        break;
-                    case 2:
-                        kmlFolders = KmlXmlReader.ReadFile(sFileName);
-                        processResult = GpxWriter.WriteGpx(sFileName, kmlFolders, outputFolder, onePerKml, onePerFolder);
-                        break;
-                    case 3:
-                        kmlFolders = KmlXPathReader.ReadFile(sFileName);
-                        processResult = GpxWriter.WriteGpx(sFileName, kmlFolders, outputFolder, onePerKml, onePerFolder);
-                        break;
-                }
-
-                if (processResult)
-                {
-                    MessageBox.Show("Conversion Completed Successfully.");
-                }
-                else
-                {
-                    MessageBox.Show("Conversion Failed.");
-                }
+                MessageBox.Show(this, message, "Convert Result");
             }
         }
 

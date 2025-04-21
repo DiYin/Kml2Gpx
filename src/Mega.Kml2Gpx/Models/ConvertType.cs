@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mega.Kml2Gpx.Models;
 
-public enum ConverterType
+public enum ConvertType
 {
     SharpKml = 0,
     XDocument = 1,

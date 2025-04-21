@@ -13,5 +13,4 @@ public class Waypoint : GpxPlacemark
     public string Latitude { get; set; }
     public string Longitude { get; set; }
     public string Elevation { get; set; }
-    public string Description { get; set; }
 }

@@ -20,5 +20,6 @@ public class Track : GpxPlacemark
 public class GpxPlacemark
 {
     public string Name { get; set; }
+    public string Description { get; set; }
     public GpxPlacemarkType GpxType { get; set; }
 }

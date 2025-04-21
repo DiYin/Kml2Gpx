@@ -75,8 +75,13 @@ internal static class KmlXDocReader
             if (kmlFolder != null) kmlFolders.Add(kmlFolder);
         }
         if (kmlFolders.Count == 0)
+        {
             foreach (var kmlDocument in doc.XPathSelectElements("//kml:Document", nsManager))
-                ProcessFolder(kmlDocument, nsManager, defaultName);
+            {
+                var kmlFolder = ProcessFolder(kmlDocument, nsManager, defaultName);
+                kmlFolders.Add(kmlFolder);
+            }
+        }
         return kmlFolders;
     }
 
@@ -91,12 +96,12 @@ internal static class KmlXDocReader
     {
         var name = element.XPathSelectElement("kml:name", nsManager)?.Value ?? defaultName;
         var kmlFolder = new KmlFolder { Name = name };
-        foreach (var kmlPlacemark in element.XPathSelectElements("kml:Placemark", nsManager))
+        foreach (var placemarkElement in element.XPathSelectElements("kml:Placemark", nsManager))
         {
-            name = kmlPlacemark.XPathSelectElement("kml:name", nsManager).Value;
-            var description = kmlPlacemark.XPathSelectElement("kml:description", nsManager)?.Value;
-            if (!TryAddPoint(kmlFolder, kmlPlacemark, name, description, nsManager))
-                TryAddPath(kmlFolder, kmlPlacemark, name, description, nsManager);
+            name = placemarkElement.XPathSelectElement("kml:name", nsManager).Value;
+            var description = placemarkElement.XPathSelectElement("kml:description", nsManager)?.Value;
+            if (!TryAddPoint(kmlFolder, placemarkElement, name, description, nsManager))
+                TryAddPath(kmlFolder, placemarkElement, name, description, nsManager);
         }
         return kmlFolder;
     }
@@ -113,26 +118,28 @@ internal static class KmlXDocReader
     private static bool TryAddPoint(KmlFolder folder, XElement element, string name, string description, XmlNamespaceManager nsManager)
     {
         var placemarkPoint = element.XPathSelectElement("kml:Point/kml:coordinates", nsManager);
-        if (placemarkPoint == null)
-            return false;
-
-        var coordinates = placemarkPoint.Value.Split(',');
-        if (coordinates.Length > 1)
+        if (placemarkPoint != null)
         {
-            var waypoint = new Waypoint
+
+            var coordinates = placemarkPoint.Value.Split(',');
+            if (coordinates.Length > 1)
             {
-                Name = name,
-                Latitude = coordinates[1].Trim(),
-                Longitude = coordinates[0].Trim(),
-                Description = description,
-            };
-            if (coordinates.Length > 2)
-            {
-                waypoint.Elevation = coordinates[2].Trim();
+                var waypoint = new Waypoint
+                {
+                    Name = name,
+                    Latitude = coordinates[1].Trim(),
+                    Longitude = coordinates[0].Trim(),
+                    Description = description,
+                };
+                if (coordinates.Length > 2)
+                {
+                    waypoint.Elevation = coordinates[2].Trim();
+                }
+                folder.Placemarks.Add(waypoint);
+                return true;
             }
-            folder.Placemarks.Add(waypoint);
         }
-        return true;
+        return false;
     }
 
     /// <summary>
@@ -148,24 +155,31 @@ internal static class KmlXDocReader
     {
         var lineStringCoordinates = element.XPathSelectElement("kml:LineString/kml:coordinates", nsManager)
             ?? element.XPathSelectElement("//kml:LinearRing/kml:coordinates", nsManager);
-        if (lineStringCoordinates == null)
-            return false;
-        var track = new Track
+        if (lineStringCoordinates != null)
         {
-            Name = folder.Name + " - " + (string.IsNullOrEmpty(name) ? description : name),
-            Points = new List<GpxPoint>()
-        };
-        var lines = lineStringCoordinates.Value.Split(new[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-        foreach (var coordinateLine in lines)
-        {
-            var coordinates = coordinateLine.Split(',');
-            track.Points.Add(new GpxPoint
+            var track = new Track
             {
-                Latitude = coordinates[1].Trim(),
-                Longitude = coordinates[0].Trim()
-            });
+                Name = name,
+                Description = description,
+                Points = new List<GpxPoint>()
+            };
+            var lines = lineStringCoordinates.Value.Split(new[] { ' ', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            if (lines.Length > 0)
+            {
+                foreach (var coordinateLine in lines)
+                {
+                    var coordinates = coordinateLine.Split(',');
+                    track.Points.Add(new GpxPoint
+                    {
+                        Latitude = coordinates[1].Trim(),
+                        Longitude = coordinates[0].Trim()
+                    });
+                }
+                folder.Placemarks.Add(track);
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
     /// <summary>

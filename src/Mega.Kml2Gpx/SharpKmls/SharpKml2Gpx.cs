@@ -20,7 +20,7 @@ internal class SharpKml2Gpx
     /// <param name="outputFolder">The folder of the gpx files to store.</param>
     /// <param name="onePerKml">Flag to indicate if store all gpx file in one folder for a kml file. Default value is false.</param>
     /// <returns></returns>
-    public static async Task<bool> ProcessKml2Gpx(string filePath, string outputFolder, OutputMode outputMode = OutputMode.OneFilePerTrack)
+    public static async Task<bool> ProcessKml2Gpx(string filePath, string outputFolder, OutputOption outputMode = OutputOption.OneFilePerTrack)
     {
         var kmlFile = await LoadKmzKmlFile(filePath);
 
@@ -32,21 +32,21 @@ internal class SharpKml2Gpx
             var placemarks = kmlFile.GetPlacemarks(folder);
             switch (outputMode)
             {
-                case OutputMode.OneFile:
+                case OutputOption.OneFile:
                     gpxPlacemarks.AddRange(placemarks);
                     break;
-                case OutputMode.OneFilePerFolder:
+                case OutputOption.OneFilePerFolder:
                     var outputFile = Helper.GetAvailableFilePath(outputFolder, folder.Name, GpxWriter.FileExtension);
                     GpxWriter.WriteFile(outputFile, placemarks, true);
                     break;
-                case OutputMode.OneFilePerTrack:
+                case OutputOption.OneFilePerTrack:
                     var folderPath = Helper.GetAvailableFolderPath(outputFolder, folder.Name);
-                    GpxWriter.WriteFile(outputFolder, placemarks);
+                    GpxWriter.WriteFile(folderPath, placemarks);
                     break;
             }
         }
 
-        if (outputMode == OutputMode.OneFile)
+        if (outputMode == OutputOption.OneFile)
         {
             var name = Path.GetFileNameWithoutExtension(filePath);
             var outFileName = Helper.GetAvailableFilePath(outputFolder, name, GpxWriter.FileExtension);

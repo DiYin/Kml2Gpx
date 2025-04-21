@@ -11,6 +11,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainViewModel();
+        var messageBoxService = new MessageBoxService(this);
+        DataContext = new MainViewModel(messageBoxService);
     }
 }

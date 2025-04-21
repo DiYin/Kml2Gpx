@@ -2,21 +2,33 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	<ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
+	<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Kml2GpxShared\SharpKmls\FileInfoExtensions.cs" Link="SharpKmls\FileInfoExtensions.cs" />
-    <Compile Include="..\Kml2GpxShared\SharpKmls\KmlDocument.cs" Link="SharpKmls\KmlDocument.cs" />
-    <Compile Include="..\Kml2GpxShared\SharpKmls\KmlFolder.cs" Link="SharpKmls\KmlFolder.cs" />
-    <Compile Include="..\Kml2GpxShared\SharpKmls\KmlResource.cs" Link="SharpKmls\KmlResource.cs" />
-    <Compile Include="..\Kml2GpxShared\SharpKmls\KmzKmlFile.cs" Link="SharpKmls\KmzKmlFile.cs" />
-    <Compile Include="..\Kml2GpxShared\SharpKmls\KmzKmlFileExtensions.cs" Link="SharpKmls\KmzKmlFileExtensions.cs" />
+    <Compile Remove="Models\**" />
+    <Compile Remove="SharpKmls\**" />
+    <Compile Remove="Xml\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="SharpKmls\**" />
+    <EmbeddedResource Remove="Xml\**" />
+    <None Remove="Models\**" />
+    <None Remove="SharpKmls\**" />
+    <None Remove="Xml\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Remove="app.manifest" />
   </ItemGroup>
 	<ItemGroup>
-	<PackageReference Include="SharpKml.Core" Version="5.2.0" />
+	<PackageReference Include="SharpKml.Core" Version="6.1.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Mega.Kml2Gpx\Mega.Kml2Gpx.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Mega.Kml2Gpx.Models;
 
-public enum OutputMode
+public enum OutputOption
 {
     OneFile = 0,
     OneFilePerFolder = 1,
