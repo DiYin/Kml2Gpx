@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Mega.Kml2Gpx.Wpf;
+namespace Mega.Kml2Gpx;
 
 public class RelayCommand : ICommand
 {
@@ -24,9 +24,10 @@ public class RelayCommand : ICommand
         _execute(parameter);
     }
 
-    public event EventHandler CanExecuteChanged
+    public event EventHandler CanExecuteChanged;
+
+    public void RaiseCanExecuteChanged()
     {
-        add => CommandManager.RequerySuggested += value;
-        remove => CommandManager.RequerySuggested -= value;
+        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 }

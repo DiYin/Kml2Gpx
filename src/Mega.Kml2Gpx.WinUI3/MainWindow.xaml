@@ -1,23 +1,155 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Window
-    xmlns:xaml="clr-namespace:Microsoft.UI.Xaml;assembly=Microsoft.WinUI"
-    x:Class="Mega.Kml2Gpx.WinUI3.App.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Mega.KmlGpx.WinUI3.App"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Title="Mega.KmlGpx.WinUI3.App">
-
+﻿<Window x:Class="Mega.Kml2Gpx.WinUI3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Mega.Kml2Gpx.WinUI3"
+        Title="KML to Gpx Converter (WinUI3)" >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Name="textBlockFileName" Width="168" Height="25" Margin="10" Text="KML/KMZ FileName:"/>
-        <TextBox Grid.Row="0" Name="textBoxFileName" Width="540" Height="30" Margin="10" />
-        <Button Grid.Row="0" x:Name="buttonBrowseFile" Click="buttonBrowseFile_Click">...</Button>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="70"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+               Name="_labelFile" 
+               Text="KML/KMZ File:" 
+               HorizontalAlignment="Left" 
+               Margin="10,30,0,0" 
+               VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" 
+                 IsReadOnly="true"
+                 HorizontalAlignment="Stretch" 
+                 Margin="0,30,30,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Center" 
+                 Height="30"
+                 VerticalContentAlignment="Center" 
+                 Text="{Binding SelectedFile, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="0" Grid.Column="3" 
+                Name="_buttonBroseFile" 
+                Content="..." 
+                HorizontalAlignment="Left" 
+                Margin="0,30,0,0" 
+                VerticalAlignment="Center" 
+                Width="30" Height="30" 
+                Command="{Binding BrowseFileCommand}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" 
+               Name="_labelFolder" 
+               Text="Output Folder:" 
+               HorizontalAlignment="Left" 
+               Margin="10,30,0,0" 
+               VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
+                 IsReadOnly="True"
+                 HorizontalAlignment="Stretch" 
+                 Margin="0,30,30,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Center" 
+                 Height="30"
+                 VerticalContentAlignment="Center" 
+                 Text="{Binding SelectedFolder, UpdateSourceTrigger=PropertyChanged}" />
+        <Button Grid.Row="1" Grid.Column="3" 
+                Content="..." 
+                HorizontalAlignment="Left" 
+                Margin="0,30,0,0" 
+                VerticalAlignment="Center" 
+                Width="30" Height="30" 
+                Command="{Binding SelectFolderCommand}"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" 
+               Text="Comverter" 
+               HorizontalAlignment="Left" 
+               Margin="0,30,0,0" 
+               VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" 
+               Text="Output Options" 
+               HorizontalAlignment="Left" 
+               Margin="0,30,0,0" 
+               VerticalAlignment="Center"/>
+        <!-- Bind ConvertTypeItems -->
+        <ListBox Grid.Row="3" Grid.Column="1" 
+            ItemsSource="{Binding ConvertTypeItems}" 
+            SelectedItem="{Binding SelectedConvertTypeItem, Mode=TwoWay}"
+            SelectionMode="Single" 
+            Margin="0,0,30,0">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Height" Value="32"/>
+                    <Setter Property="Padding" Value="0,-4,-4,0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding DisplayText}" 
+                                   Padding="5,0,0,0" 
+                                   TextAlignment="Left"
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center"
+                                   MinWidth="115"
+                                   TextWrapping="NoWrap"
+                                   TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Bind OutputModeItems -->
+        <ListBox Grid.Row="3" Grid.Column="2" 
+            ItemsSource="{Binding OutputOptionItems}" 
+            SelectedItem="{Binding SelectedOutputOptionItem, Mode=TwoWay}"
+            SelectionMode="Single" 
+            Margin="0,0,30,0">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Height" Value="32"/>
+                    <Setter Property="Padding" Value="0,-4,-4,0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding DisplayText}" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <Button Grid.Row="4" Grid.Column="1" 
+                Name="buttonConvert" 
+                Content="Convert" 
+                HorizontalAlignment="Stretch" 
+                Margin="0,30,30,0" 
+                VerticalAlignment="Center" 
+                Height="30" 
+                Command="{Binding ConvertCommand}"/>
+        <Button Grid.Row="4" Grid.Column="2" 
+                Name="buttonExit" 
+                Content="Exit" 
+                HorizontalAlignment="Stretch" 
+                Margin="0,30,30,0" 
+                VerticalAlignment="Center" 
+                Height="30" 
+                Command="{Binding ExitCommand}"/>
+        <Button Grid.Row="4" Grid.Column="3" 
+                Name="ButtonHelp" 
+                Content="?" 
+                HorizontalAlignment="Left" 
+                Margin="0,30,0,0" 
+                VerticalAlignment="Center" 
+                Width="30" 
+                Height="30" 
+                Command="{Binding HelpCommand}"/>
     </Grid>
 </Window>

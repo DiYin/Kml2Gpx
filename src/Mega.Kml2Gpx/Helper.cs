@@ -6,7 +6,7 @@ namespace Mega.Kml2Gpx;
 /// <summary>
 /// Helper class
 /// </summary>
-internal class Helper
+public class Helper
 {
     /// <summary>
     /// Get available filename
@@ -75,7 +75,7 @@ internal class Helper
     /// <param name="filePath"></param>
     /// <param name="name"></param>
     /// <returns></returns>
-    public static string GetAvailableFolderPath(string filePath, string name)
+    public static string GetAvailableFolderPath(string filePath, string name = default)
     {
         var folder = filePath;
         if (!File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
@@ -84,7 +84,7 @@ internal class Helper
             folder = folder + @"\" + Path.GetFileNameWithoutExtension(filePath);
         }
 
-        folder = Path.Combine(folder, GetValidFileName(name));
+        if (!string.IsNullOrWhiteSpace(name)) folder = Path.Combine(folder, GetValidFileName(name));
 
         if (!Directory.Exists(folder))
         {

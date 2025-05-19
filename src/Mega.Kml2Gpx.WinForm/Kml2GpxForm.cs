@@ -37,9 +37,9 @@ namespace Mega.Kml2Gpx.WinForms.App
         {
             _openFileDialog.ShowDialog();
             _txtFileName.Text = _openFileDialog.FileName;
-            if (string.IsNullOrEmpty(_txtOutputFolder.Text))
+            if (!string.IsNullOrEmpty(_txtFileName.Text))
             {
-                _folderBrowserDialog.SelectedPath = Path.GetDirectoryName(_txtFileName.Text);
+                _folderBrowserDialog.SelectedPath = Helper.GetAvailableFolderPath(_txtFileName.Text);
                 _txtOutputFolder.Text = _folderBrowserDialog.SelectedPath;
             }
         }
