@@ -22,7 +22,7 @@ public partial class MainViewModel : INotifyPropertyChanged
         ConvertTypeItems = new ObservableCollection<CheckedItem>
         {
             new CheckedItem { Index = 0, DisplayText = "Sharp Kml", IsChecked = true },
-            new CheckedItem { Index = 1, DisplayText= "XDocument", IsChecked = false },
+            new CheckedItem { Index = 1, DisplayText = "XDocument", IsChecked = false },
             new CheckedItem { Index = 2, DisplayText = "XmlDocument", IsChecked = false },
             new CheckedItem { Index = 3, DisplayText = "XPathDocument", IsChecked = false }
         };
